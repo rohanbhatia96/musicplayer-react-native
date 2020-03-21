@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, Button} from 'react-native';
+import {Text, Button, View, Image} from 'react-native';
 import TrackPlayer, {
   TrackPlayerEvents,
   STATE_PLAYING,
@@ -9,6 +9,17 @@ import {
   useTrackPlayerEvents,
 } from 'react-native-track-player/lib/hooks';
 import Slider from '@react-native-community/slider';
+import styles from './styles';
+
+const songDetails = {
+  id: '1',
+  url:
+    'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+  title: 'The Greatest Song',
+  album: 'Great Album',
+  artist: 'A Great Dude',
+  artwork: 'https://picsum.photos/300',
+};
 
 const trackPlayerInit = async () => {
   await TrackPlayer.setupPlayer();
@@ -22,14 +33,13 @@ const trackPlayerInit = async () => {
     ],
   });
   await TrackPlayer.add({
-    id: '1',
-    url:
-      'https://audio-previews.elements.envatousercontent.com/files/103682271/preview.mp3',
+    id: songDetails.id,
+    url: songDetails.url,
     type: 'default',
-    title: 'My Title',
-    album: 'My Album',
-    artist: 'Rohan Bhatia',
-    artwork: 'https://picsum.photos/100',
+    title: songDetails.title,
+    album: songDetails.album,
+    artist: songDetails.artist,
+    artwork: songDetails.artwork,
   });
   return true;
 };
@@ -81,24 +91,41 @@ const App = () => {
   };
 
   return (
-    <>
-      <Text>Music Player</Text>
-      <Button
-        title={isPlaying ? 'Pause' : 'Play'}
-        onPress={onButtonPressed}
-        disabled={!isTrackPlayerInit}
-      />
-      <Slider
-        style={{width: 400, height: 40}}
-        minimumValue={0}
-        maximumValue={1}
-        value={sliderValue}
-        minimumTrackTintColor="#111000"
-        maximumTrackTintColor="#000000"
-        onSlidingStart={slidingStarted}
-        onSlidingComplete={slidingCompleted}
-      />
-    </>
+    <View style={styles.mainContainer}>
+      <View style={styles.imageContainer}>
+        <Image
+          source={{
+            uri: songDetails.artwork,
+          }}
+          resizeMode="contain"
+          style={styles.albumImage}
+        />
+      </View>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.songTitle}>{songDetails.title}</Text>
+        <Text style={styles.artist}>{songDetails.artist}</Text>
+      </View>
+      <View style={styles.controlsContainer}>
+        <Slider
+          style={styles.progressBar}
+          minimumValue={0}
+          maximumValue={1}
+          value={sliderValue}
+          minimumTrackTintColor="#111000"
+          maximumTrackTintColor="#000000"
+          onSlidingStart={slidingStarted}
+          onSlidingComplete={slidingCompleted}
+          thumbTintColor="#000"
+        />
+        <Button
+          title={isPlaying ? 'Pause' : 'Play'}
+          onPress={onButtonPressed}
+          style={styles.playButton}
+          disabled={!isTrackPlayerInit}
+          color="#000000"
+        />
+      </View>
+    </View>
   );
 };
 
