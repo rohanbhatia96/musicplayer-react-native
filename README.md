@@ -11,7 +11,7 @@ Actions you can take on the song:
 
 ## Tutorial Link
 
-[Tutorial Link](https://therohanbhatia.com/blog/music-player-app-using-react-native-hooks/)
+[Building a Music Player App Using React Native Hooks](https://therohanbhatia.com/blog/music-player-app-using-react-native-hooks/)
 
 ## App Images
 
