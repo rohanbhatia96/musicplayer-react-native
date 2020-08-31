@@ -59,12 +59,12 @@ const App = () => {
    startPlayer();
  }, []);
 
-  useEffect(() => {
-    if (!isSeeking && isPlaying) {
-      setSliderValue(position / duration);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [position, duration]);
+  //this hook updates the value of the slider whenever the current position of the song changes
+ useEffect(() => {
+   if (!isSeeking && position && duration) {
+     setSliderValue(position / duration);
+   }
+ }, [position, duration]);
 
   useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_STATE], event => {
     if (event.state === STATE_PLAYING) {
