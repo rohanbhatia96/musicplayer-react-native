@@ -51,9 +51,13 @@ const App = () => {
   const [isSeeking, setIsSeeking] = useState(false);
   const {position, duration} = useTrackPlayerProgress(250);
 
-  useEffect(() => {
-    setIsTrackPlayerInit(trackPlayerInit);
-  }, []);
+   useEffect(() => {
+   const startPlayer = async () => {
+      let isInit =  await trackPlayerInit();
+      setIsTrackPlayerInit(isInit);
+   }
+   startPlayer();
+ }, []);
 
   useEffect(() => {
     if (!isSeeking && isPlaying) {
