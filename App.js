@@ -23,7 +23,7 @@ const songDetails = {
 
 const trackPlayerInit = async () => {
   await TrackPlayer.setupPlayer();
-  TrackPlayer.updateOptions({
+  await TrackPlayer.updateOptions({
     stopWithApp: true,
     capabilities: [
       TrackPlayer.CAPABILITY_PLAY,
